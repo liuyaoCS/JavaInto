@@ -1,6 +1,6 @@
-package com.example.javalib;
+package com.example.javalib.classloader;
 
-public class Main {
+public class SystemProperties {
     public static void main(String[] args){
         testProperties();
     }
