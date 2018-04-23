@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JavaInto.iml" filepath="$PROJECT_DIR$/JavaInto.iml" />
+      <module fileurl="file://F:\as\project-practise\JavaInto\JavaInto.iml" filepath="F:\as\project-practise\JavaInto\JavaInto.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://F:\as\project-practise\JavaInto\app\app.iml" filepath="F:\as\project-practise\JavaInto\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/javalib/javalib.iml" filepath="$PROJECT_DIR$/javalib/javalib.iml" />
+      <module fileurl="file://F:\as\project-practise\JavaInto\javalib\javalib.iml" filepath="F:\as\project-practise\JavaInto\javalib\javalib.iml" />
     </modules>
   </component>
 </project>
