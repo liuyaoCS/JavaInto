@@ -1,4 +1,4 @@
-package com.example.javalib.classloader;
+package demo.classloader;
 
 public class SystemProperties {
     public static void main(String[] args){

@@ -1,4 +1,4 @@
-package com.example.javalib.classloader;
+package demo.classloader;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
