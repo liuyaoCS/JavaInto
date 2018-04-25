@@ -1,4 +1,4 @@
-package demo.classloader;
+package ali.classloader;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;

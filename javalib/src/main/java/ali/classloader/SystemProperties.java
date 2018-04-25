@@ -1,4 +1,4 @@
-package demo.classloader;
+package ali.classloader;
 
 public class SystemProperties {
     public static void main(String[] args){

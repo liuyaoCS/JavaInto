@@ -1,4 +1,4 @@
-package demo.encoding;
+package ali.encoding;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
@@ -6,7 +6,7 @@ import java.nio.charset.Charset;
 
 /**
  * Created by liuyao-s on 2018/4/24.
- * file Test.java storage as utf-8 bytes: 49 20 e5 90 9b
+ * file ClassInfoTest.java storage as utf-8 bytes: 49 20 e5 90 9b
  * javac -encoding UTF-8
  * java -Dfile.encoding=UTF-8
  * 存的时候用UTF-8字节数组，运行时存储的都是用unicode字符，代码设计编解码才会转成utf-8字节数组
