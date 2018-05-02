@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Input {
     int a;
+    @Deprecated
     public List test(String s){
         List<String> lists=new ArrayList<>();
         lists.add(s);
