@@ -43,7 +43,7 @@ import javax.tools.JavaFileObject;
 
 import com.sun.source.util.JavacTask;
 import com.sun.source.util.Plugin;
-import com.sun.tools.doclint.DocLint;
+//import com.sun.tools.doclint.DocLint;
 import com.sun.tools.javac.api.BasicJavacTask;
 import com.sun.tools.javac.code.Source;
 import com.sun.tools.javac.file.CacheFSInfo;
@@ -483,30 +483,6 @@ public class Main {
             }
 
             comp = JavaCompiler.instance(context);
-
-            // FIXME: this code will not be invoked if using JavacTask.parse/analyze/generate
-            String xdoclint = options.get(XDOCLINT);
-            String xdoclintCustom = options.get(XDOCLINT_CUSTOM);
-            if (xdoclint != null || xdoclintCustom != null) {
-                Set<String> doclintOpts = new LinkedHashSet<String>();
-                if (xdoclint != null)
-                    doclintOpts.add(DocLint.XMSGS_OPTION);
-                if (xdoclintCustom != null) {
-                    for (String s: xdoclintCustom.split("\\s+")) {
-                        if (s.isEmpty())
-                            continue;
-                        doclintOpts.add(s.replace(XDOCLINT_CUSTOM.text, DocLint.XMSGS_CUSTOM_PREFIX));
-                    }
-                }
-                if (!(doclintOpts.size() == 1
-                        && doclintOpts.iterator().next().equals(DocLint.XMSGS_CUSTOM_PREFIX + "none"))) {
-                    JavacTask t = BasicJavacTask.instance(context);
-                    // standard doclet normally generates H1, H2
-                    doclintOpts.add(DocLint.XIMPLICIT_HEADERS + "2");
-                    new DocLint().init(t, doclintOpts.toArray(new String[doclintOpts.size()]));
-                    comp.keepComments = true;
-                }
-            }
 
             fileManager = context.get(JavaFileManager.class);
 
