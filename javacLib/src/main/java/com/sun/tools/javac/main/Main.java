@@ -42,8 +42,6 @@ import javax.tools.JavaFileManager;
 import javax.tools.JavaFileObject;
 
 import com.sun.source.util.JavacTask;
-import com.sun.source.util.Plugin;
-//import com.sun.tools.doclint.DocLint;
 import com.sun.tools.javac.api.BasicJavacTask;
 import com.sun.tools.javac.code.Source;
 import com.sun.tools.javac.file.CacheFSInfo;
@@ -445,42 +443,6 @@ public class Main {
                         && System.getProperty("nonBatchMode") == null);
             if (batchMode)
                 CacheFSInfo.preRegister(context);
-
-            // FIXME: this code will not be invoked if using JavacTask.parse/analyze/generate
-            // invoke any available plugins
-            String plugins = options.get(PLUGIN);
-            if (plugins != null) {
-                JavacProcessingEnvironment pEnv = JavacProcessingEnvironment.instance(context);
-                ClassLoader cl = pEnv.getProcessorClassLoader();
-                ServiceLoader<Plugin> sl = ServiceLoader.load(Plugin.class, cl);
-                Set<List<String>> pluginsToCall = new LinkedHashSet<List<String>>();
-                for (String plugin: plugins.split("\\x00")) {
-                    pluginsToCall.add(List.from(plugin.split("\\s+")));
-                }
-                JavacTask task = null;
-                Iterator<Plugin> iter = sl.iterator();
-                while (iter.hasNext()) {
-                    Plugin plugin = iter.next();
-                    for (List<String> p: pluginsToCall) {
-                        if (plugin.getName().equals(p.head)) {
-                            pluginsToCall.remove(p);
-                            try {
-                                if (task == null)
-                                    task = JavacTask.instance(pEnv);
-                                plugin.init(task, p.tail.toArray(new String[p.tail.size()]));
-                            } catch (Throwable ex) {
-                                if (apiMode)
-                                    throw new RuntimeException(ex);
-                                pluginMessage(ex);
-                                return Result.SYSERR;
-                            }
-                        }
-                    }
-                }
-                for (List<String> p: pluginsToCall) {
-                    log.printLines(PrefixKind.JAVAC, "msg.plugin.not.found", p.head);
-                }
-            }
 
             comp = JavaCompiler.instance(context);
 
