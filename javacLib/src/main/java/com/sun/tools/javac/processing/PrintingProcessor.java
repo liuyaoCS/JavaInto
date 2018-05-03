@@ -99,7 +99,7 @@ public class PrintingProcessor extends AbstractProcessor {
         protected PrintingElementVisitor defaultAction(Element e, Boolean newLine) {
             if (newLine != null && newLine)
                 writer.println();
-            printDocComment(e);
+
             printModifiers(e);
             return this;
         }
@@ -300,26 +300,7 @@ public class PrintingProcessor extends AbstractProcessor {
             writer.flush();
         }
 
-        private void printDocComment(Element e) {
-            String docComment = elementUtils.getDocComment(e);
-
-            if (docComment != null) {
-                // Break comment into lines
-                java.util.StringTokenizer st = new StringTokenizer(docComment,
-                                                                  "\n\r");
-                indent();
-                writer.println("/**");
-
-                while(st.hasMoreTokens()) {
-                    indent();
-                    writer.print(" *");
-                    writer.println(st.nextToken());
-                }
-
-                indent();
-                writer.println(" */");
-            }
-        }
+        
 
         private void printModifiers(Element e) {
             ElementKind kind = e.getKind();

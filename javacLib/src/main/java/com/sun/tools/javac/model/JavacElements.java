@@ -313,20 +313,6 @@ public class JavacElements implements Elements {
         return (treeTop != null) ? treeTop.fst : null;
     }
 
-    public String getDocComment(Element e) {
-        // Our doc comment is contained in a map in our toplevel,
-        // indexed by our tree.  Find our enter environment, which gives
-        // us our toplevel.  It also gives us a tree that contains our
-        // tree:  walk it to find our tree.  This is painful.
-        Pair<JCTree, JCCompilationUnit> treeTop = getTreeAndTopLevel(e);
-        if (treeTop == null)
-            return null;
-        JCTree tree = treeTop.fst;
-        JCCompilationUnit toplevel = treeTop.snd;
-        if (toplevel.docComments == null)
-            return null;
-        return toplevel.docComments.getCommentText(tree);
-    }
 
     public PackageElement getPackageOf(Element e) {
         return cast(Symbol.class, e).packge();
@@ -356,6 +342,11 @@ public class JavacElements implements Elements {
             }
         }
         return valmap;
+    }
+
+    @Override
+    public String getDocComment(Element element) {
+        return null;
     }
 
     /**

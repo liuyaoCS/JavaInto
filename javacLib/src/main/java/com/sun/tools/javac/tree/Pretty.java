@@ -73,10 +73,6 @@ public class Pretty extends JCTree.Visitor {
      */
     Name enclClassName;
 
-    /** A table mapping trees to their documentation comments
-     *  (can be null)
-     */
-    DocCommentTable docComments = null;
 
     /**
      * A string sequence to be used when Pretty output should be constrained
@@ -271,24 +267,6 @@ public class Pretty extends JCTree.Visitor {
      *  @param tree    The tree for which a documentation comment should be printed.
      */
     public void printDocComment(JCTree tree) throws IOException {
-        if (docComments != null) {
-            String dc = docComments.getCommentText(tree);
-            if (dc != null) {
-                print("/**"); println();
-                int pos = 0;
-                int endpos = lineEndPos(dc, pos);
-                while (pos < dc.length()) {
-                    align();
-                    print(" *");
-                    if (pos < dc.length() && dc.charAt(pos) > ' ') print(" ");
-                    print(dc.substring(pos, endpos)); println();
-                    pos = endpos + 1;
-                    endpos = lineEndPos(dc, pos);
-                }
-                align(); print(" */"); println();
-                align();
-            }
-        }
     }
 //where
     static int lineEndPos(String s, int start) {
@@ -365,7 +343,6 @@ public class Pretty extends JCTree.Visitor {
      *                  toplevel tree.
      */
     public void printUnit(JCCompilationUnit tree, JCClassDecl cdef) throws IOException {
-        docComments = tree.docComments;
         printDocComment(tree);
         if (tree.pid != null) {
             print("package ");
@@ -526,10 +503,6 @@ public class Pretty extends JCTree.Visitor {
 
     public void visitVarDef(JCVariableDecl tree) {
         try {
-            if (docComments != null && docComments.hasComment(tree)) {
-                println(); align();
-            }
-            printDocComment(tree);
             if ((tree.mods.flags & ENUM) != 0) {
                 print("/*public static final*/ ");
                 print(tree.name);
