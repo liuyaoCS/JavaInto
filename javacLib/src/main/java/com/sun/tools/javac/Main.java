@@ -33,14 +33,12 @@ import java.io.PrintWriter;
  */
 @jdk.Exported
 public class Main {
-    private static String source = "F:\\as\\project-practise\\JavaInto\\javalib\\src\\main\\java\\ali\\javac\\Input.java";
 
     /** Main entry point for the launcher.
      *  Note: This method calls System.exit.
      *  @param args command line arguments
      */
     public static void main(String[] args) throws Exception {
-        args = new String[]{source};
         System.exit(compile(args));
     }
 
