@@ -3,8 +3,11 @@ package base.generic;
 import java.util.ArrayList;
 
 
-public class Test {
-
+public class Test<Q> {
+	private Q mQ;
+	public Test(Q q){
+		mQ = q;
+	}
 	/**
 	 * 会报Erasure of method b(ArrayList<Integer>) is the same as another method in type ClassInfoTest
 	 * 即是改变一个方法的返回值也不可行，因为返回值不参与函数重载。
@@ -23,8 +26,6 @@ public class Test {
 		return t;
 	}
 	public <T,K> T a(T t,K k){
-//		t=new T();//不能创建一个泛型类型
-//		T[] arr=new T[];//不能创建泛型数组
 		return t;
 	}
 
@@ -45,6 +46,12 @@ public class Test {
 	public static void main(String[] args) {
 		String[] ss=new String[]{"a","ba","bc"};
 		System.out.println(findMax(ss));
+
+		Test<String> test = new Test<>("ss");
+		//Test<int> testInt = new Test<>(1); //不能用基本类型实例化泛型参数
+		//boolean ret = test instanceof Test<String>; //运行时类型检查只适用于原始类型
+		//t=new T();//不能创建一个泛型类型：new Object()肯定不符合本意，可以通过反射实现
+		//T[] arr=new T[];//不能创建泛型数组 :防止跳过数组存储检查
 	}
 
 
